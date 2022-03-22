@@ -62,8 +62,12 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
 
   body {
-    background: var(--white-color);
+    background: #000000;
     font-family: var(--base-font-family);
+  }
+
+  .fondo_blanco{
+    background-color: var(--white-color);
   }
 
 
@@ -252,7 +256,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
   -----------------------------------------*/
 
   .feature {
-    background: var(--dark-color);
+    background: #000000;
     padding: 5rem 0;
   }
 
@@ -367,8 +371,9 @@ https://www.tooplate.com/view/2119-gymso-fitness
   -----------------------------------------*/
 
   .hero {
-    background-clip: url('../video/herd.mp4');
+    /*background-clip: url('../video/herd.mp4');*/
     background-size: cover;
+    background-color: #000000;
     background-position: top;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -376,7 +381,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
     position: relative;
   }
 
-  video { 
+  .video_set { 
     position: absolute;
     top: 0;
     left: 0;
@@ -384,6 +389,16 @@ https://www.tooplate.com/view/2119-gymso-fitness
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  .video_hst { 
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    height: 40%;
+    align-self: center;
   }
 
 
@@ -508,6 +523,14 @@ https://www.tooplate.com/view/2119-gymso-fitness
     background: var(--about-bg-color);
   }
 
+  .about_osc {
+    background: #000000;
+    max-height: 50%;
+    height: 50%;
+    align-items: center;
+    align-content: center;
+  }
+
   .about-working-hours {
     border-left: 2px solid;
     padding-left: 3.5rem;
@@ -615,6 +638,10 @@ https://www.tooplate.com/view/2119-gymso-fitness
     color: var(--primary-color);
   }
 
+  .copyright-text{
+    font-size: 1px;
+  }
+
 
   /*---------------------------------------
      SOCIAL ICON              
@@ -676,6 +703,12 @@ https://www.tooplate.com/view/2119-gymso-fitness
     .modal-content {
       padding: 2rem;
     }
+
+    .video_hst { 
+
+      width: 50%;
+      height: 50%;
+    }
   }
 
   @media screen and (max-width: 767px) {
@@ -691,6 +724,24 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
     .contact h2 span {
       display: block;
+    }
+    .video_hst { 
+
+      width: 100%;
+      height: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      padding-top: 1em;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    strong{
+      text-align: center;
     }
   }
 
@@ -714,6 +765,10 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
     h6 {
       font-size: 16px;
+      text-align: center;
+    }
+
+    .centro_movil{
       text-align: center;
     }
   

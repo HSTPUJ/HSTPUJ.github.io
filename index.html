@@ -101,7 +101,7 @@
 
      <!-- HERO -->
      <section class="hero d-flex flex-column justify-content-center align-items-center" id="home">
-        <video autoplay muted loop>
+        <video class="video_set" autoplay muted loop id="noContextMenu">
             <source src="video/herd_comp.mp4" type="video/mp4">
         </video>
 
@@ -138,7 +138,7 @@
 
                     <h6 class="mb-4 text-white" data-aos="fade-up">Pontificia Universidad Javeriana de Cali</h6>
 
-                    <p data-aos="fade-up" data-aos-delay="200">El proyecto pretende que, a través de nuestros conocimientos, realicemos una aportación valiosa a un sector que consideremos la pueda aprovechar.</p>
+                    <p class="centro_movil" data-aos="fade-up" data-aos-delay="200" id="noContextMenu">El proyecto pretende que, a través de nuestros conocimientos, realicemos una aportación valiosa a un sector que consideremos la pueda aprovechar.</p>
 
                     <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Quiero apoyar</a>
                 </div>
@@ -159,6 +159,19 @@
                 </div>
 
             </div>
+            
+        </div>
+    </section>
+
+    <section class="about_osc mb-4 text-white" data-aos="fade-up" id="video">
+        <div class="container">
+            <center>
+                <video class="video_hst" autoplay muted loop id="noContextMenu">
+                    <source src="video/HST_1.mp4" type="video/mp4">
+                </video>
+
+            </center>
+            
         </div>
     </section>
 
@@ -171,9 +184,9 @@
                             <div class="mt-lg-5 mb-lg-0 mb-4 col-lg-5 col-md-10 mx-auto col-12">
                                 <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">Hola, somos HST</h2>
 
-                                <p data-aos="fade-up" data-aos-delay="400">Herd Stat Tracker es un dispositivo que se monta en la pechera del perro de pastoreo del rebaño.</p>
+                                <p class="centro_movil" data-aos="fade-up" data-aos-delay="400">Herd Stat Tracker es un dispositivo que se monta en la pechera del perro de pastoreo del rebaño.</p>
 
-                                <p data-aos="fade-up" data-aos-delay="500">A través de distintos sensores y mediciones,<a rel="nofollow"> guarda estadísticas del proceso de pastoreo,</a> mismas que se pueden utilizar <a rel="nofollow">para optimizar el proceso o tomar decisiones importantes.</a></p>
+                                <p class="centro_movil" data-aos="fade-up" data-aos-delay="500">A través de distintos sensores y mediciones,<a rel="nofollow"> guarda estadísticas del proceso de pastoreo,</a> mismas que se pueden utilizar <a rel="nofollow">para optimizar el proceso o tomar decisiones importantes.</a></p>
 
                             </div>
 
@@ -224,9 +237,11 @@
                </div>
      </section>
 
+    
+
 
      <!-- CLASS -->
-     <section class="class section" id="class">
+     <section class="class section fondo_blanco" id="class">
                <div class="container">
                     <div class="row">
 
@@ -353,7 +368,7 @@
 
 
      <!-- CONTACT -->
-     <section class="contact section" id="contact">
+     <section class="contact section fondo_blanco" id="contact">
           <div class="container">
                <div class="row">
 
@@ -397,13 +412,13 @@
                <div class="row">
 
                     <div class="ml-auto col-lg-4 col-md-5">
-                        <p class="copyright-text">Copyright &copy; Pontificia Universidad Javeriana de Cali
+                        <p class="copyright-text">Copyright &copy; Herd Stat Tracker
                     </div>
 
                     <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
                         <p class="mr-4">
                             <i class="fa fa-envelope-o mr-1"></i>
-                            <a href="#">PIP@javerianacali.edu.co</a>
+                            <a href="#">HST@javerianacali.edu.co</a>
                         </p>
 
                         <p><i class="fa fa-phone mr-1"></i>+57 322 1234 567</p>
@@ -459,6 +474,7 @@
      <script src="js/aos.js"></script>
      <script src="js/smoothscroll.js"></script>
      <script src="js/custom.js"></script>
+     <script src="js/nocontext.js"></script>
 
      
      <script src="./three.min.js"></script>
