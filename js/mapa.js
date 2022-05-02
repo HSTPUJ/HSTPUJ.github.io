@@ -1,27 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>ESP12E, Thingspeak, GPS and Google Map</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHmJ6UhGw_XxJ4xYnKkfo0XAXx0KEeGog"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>
-
-      var map;
+var map;
         var x;
         function loadmaps(){
             $.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
@@ -40,7 +17,7 @@
         }).done(function() {
             
                 initialize();
-    });
+        });
             
         }
         window.setInterval(function(){
@@ -70,9 +47,3 @@
       }
 
       google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-  </head>
-  <body>
-    <div id="map"></div>
-  </body>
-</html>
