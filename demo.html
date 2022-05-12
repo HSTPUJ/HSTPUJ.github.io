@@ -34,8 +34,7 @@
     <!-- Script PolyFill --> 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     
-    <!-- ESTILOS -->
-
+    <!-- Estilos -->
     <style>
       /**
       * @license
@@ -80,7 +79,7 @@
 
     </style>
 
-    <!-- SCRIPTS -->
+    <!-- Scripts -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHmJ6UhGw_XxJ4xYnKkfo0XAXx0KEeGog&callback=initMap&libraries=visualization&v=weekly" defer></script>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -138,7 +137,6 @@
           anchor: new google.maps.Point(0, 0),
         };
 
-
         // Generación de puntos y marcadores
         for (i = 0; i < x.length; i++) {  
           marker = new google.maps.Marker({
@@ -163,18 +161,16 @@
         }
 
       //Heatmap
-       
         heatmap.set("radius", heatmap.get("radius") ? null : 20);
       }
- 
+
       // Puntos en el mapa
       function getPoints(x,y,z,i) {
         return [
           new google.maps.LatLng(x[i], y[i]),
-         
         ];
       }
-    
+
       //Llamar a la función loadmaps una sola vez
       let intervalId = window.setInterval(function(){
                 datos=loadmaps();
@@ -185,11 +181,11 @@
                   window.clearInterval(intervalId);
                 }*/
                     }, 1);
-    
     </script>
   </head>
 
   <body>
+    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
 
@@ -235,22 +231,10 @@
           </div>
 
       </div>
-  </nav>
-    <!-- <div id="floating-panel">
-      <button id="toggle-heatmap">Toggle Heatmap</button>
-      <button id="change-gradient">Change gradient</button>
-      <button id="change-radius">Change radius</button>
-      <button id="change-opacity">Change opacity</button>
-    </div>-->
-    <div id="map"></div>
+    </nav>
 
-    <!--
-     The `defer` attribute causes the callback to execute after the full HTML
-     document has been parsed. For non-blocking uses, avoiding race conditions,
-     and consistent behavior across browsers, consider loading using Promises
-     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-    -->
-    
+    <!-- Mapa -->
+    <div id="map"></div>
   </body>
 
 </html>
