@@ -93,44 +93,73 @@
       // This example requires the Visualization library. Include the libraries=visualization
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
-      let map, heatmap, x, y;
+      let map, heatmap, x, y, z;
 
       function loadmaps(){
         $.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
         var m = result;
-        //x=Number(3.634441);
-        x=Number(m.field1);
+        x=Number(3.634441);
+        //x=Number(m.field1);
         });
             $.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=Your_UUKYCNZYHWOJNOK5", function(result){
             var m = result;
-            //y=Number(-76.335292);
-            y=Number(m.field2);
+            y=Number(-76.335292);
+            //y=Number(m.field2);
+            });
+              $.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=Your_UUKYCNZYHWOJNOK5", function(result){
+              var m = result;
+              z=String("12:30");
+              //z=String(m.field3);
         }).done(function() {
             
-            window.initMap = initMap(x,y);
+            window.initMap = initMap(x,y,z);
         });
-        
+        return[x,y,z];        
       }
       //Ya toma los datos, ahora falta que initMap los interprete
 
-      //Llamar a la función loadmaps una sola vez
-      let intervalId = window.setInterval(function(){
-          loadmaps();
-          window.clearInterval(intervalId);
-              }, 1);
-
       //Inicializar
         
-      function initMap(x,y) {
+      function initMap(x,y,z) {
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 17.5,
           center: { lat: x, lng: y },
           mapTypeId: "satellite",
         });
-        heatmap = new google.maps.visualization.HeatmapLayer({
-          data: getPoints(x,y),
+
+        //marker
+        const image = {
+          url: " ",
+          // Medida del marcador
+          size: new google.maps.Size(10, 10),
+          // Origen
+          origin: new google.maps.Point(0, 0),
+          // Ancla de marcador
+          anchor: new google.maps.Point(0, 0),
+        };
+
+        var marker = new google.maps.Marker({
+          position: {lat: x, lng: y},
+          icon: image,
           map: map,
         });
+
+        var infowindow = new google.maps.InfoWindow({
+          content: '<p><b>SIMO</b><br>Hora en este punto:' + z + '</p>'
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map, marker);
+        });
+
+        //Heatmap
+        heatmap = new google.maps.visualization.HeatmapLayer({
+          data: getPoints(x,y,z),
+          map: map,
+        });
+        heatmap.set("radius", heatmap.get("radius") ? null : 20);
+        // Alerta a usuario
+        //window.alert("Usuario: Hatico\n"+"Inicio de recorrido: "+z+"\nTiempo de recorrido: 2:03hrs\nDistancia recorrida: 5.2kms");
         document
           .getElementById("toggle-heatmap")
           .addEventListener("click", toggleHeatmap);
@@ -179,9 +208,25 @@
       }
 
       // Heatmap data: 500 Points
-      function getPoints(x,y) {
+      function getPoints(x,y,z) {
         return [
           new google.maps.LatLng(x, y),
+          new google.maps.LatLng(x+0.00001, y+0.0001),
+          new google.maps.LatLng(x+0.00005, y+0.00015),
+          new google.maps.LatLng(x+0.00009, y+0.0002),
+          new google.maps.LatLng(x+0.00012, y+0.0002),
+          new google.maps.LatLng(x+0.000125, y+0.0002),
+          new google.maps.LatLng(x+0.00019, y+0.00025),
+          new google.maps.LatLng(x+0.00025, y+0.00025),
+          new google.maps.LatLng(x+0.00030, y+0.00025),
+          new google.maps.LatLng(x+0.00038, y+0.00025),
+          new google.maps.LatLng(x+0.00048, y+0.00025),
+          new google.maps.LatLng(x+0.00049, y+0.00025),
+          new google.maps.LatLng(x+0.00050, y+0.00025),
+          new google.maps.LatLng(x+0.00065, y+0.00025),
+          new google.maps.LatLng(x+0.00065, y+0.00015),
+          new google.maps.LatLng(x+0.00065, y+0.00005),
+          
           /*new google.maps.LatLng(37.782745, -122.444586),
           new google.maps.LatLng(37.782842, -122.443688),
           new google.maps.LatLng(37.782919, -122.442815),
@@ -683,9 +728,17 @@
           new google.maps.LatLng(37.751266, -122.403355),*/
         ];
       }
-
-      
-
+    
+      //Llamar a la función loadmaps una sola vez
+      let intervalId = window.setInterval(function(){
+                datos=loadmaps();
+                window.clearInterval(intervalId);
+                /*var i = 0;
+                i = i+1;
+                if (i = 100) {
+                  window.clearInterval(intervalId);
+                }*/
+                    }, 1);
     </script>
   </head>
 
