@@ -4,8 +4,8 @@ var map;
             $.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
         	
             var m = result;
-            x=Number(m.field1);
-                           //alert(x);
+            x=Number(3.3467);
+                           alert(x);
 
         });
             $.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=Your_UUKYCNZYHWOJNOK5", function(result){
@@ -20,11 +20,13 @@ var map;
         });
             
         }
+        
         window.setInterval(function(){
-        loadmaps();
-            }, 9000);
+          loadmaps();
+              }, 1000);
+
       function initialize() {
-          //alert(y);
+          alert(y);
         var mapOptions = {
           zoom: 18,
           center: {lat: x, lng: y}
