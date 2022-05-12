@@ -110,9 +110,8 @@
               //z=String("12:30");
               m=String(m.field3);
               z=m.split(',');
-        }).done(function() {
-            
-            window.initMap = initMap(x,y,z);
+              }).done(function() {
+                  window.initMap = initMap(x,y,z);
         });
         return[x,y,z];        
       }
