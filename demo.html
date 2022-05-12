@@ -121,7 +121,7 @@
         // Posición inicial del mapa
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 17.5,
-          center: { lat: x[x.length-1], lng: y[x.length-1] },
+          center: new google.maps.LatLng(x[x.length-1], y[x.length-1] ),
           mapTypeId: "satellite",
         });
 
