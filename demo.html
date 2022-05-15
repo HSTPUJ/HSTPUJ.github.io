@@ -99,13 +99,13 @@
         m=String(m.field1);
         x=m.split(',').map(Number);
         });
-            $.getJSON("./pruebasjson/longitud.json", function(result){
+            $.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
             m = result;
             //y=Number(-76.335292);
             m=String(m.field2);
             y=m.split(',').map(Number);
             });
-              $.getJSON("./pruebasjson/hora.json", function(result){
+              $.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
               m = result;
               //z=String("12:30");
               m=String(m.field3);
