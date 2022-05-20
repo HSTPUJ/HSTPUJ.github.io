@@ -270,6 +270,11 @@ https://www.tooplate.com/view/2119-gymso-fitness
     padding: 1rem;
   }
 
+  .navbar-inf {
+    background: var(--primary-color);
+    padding: 1rem;
+  }
+
   .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 1.5rem;
     padding-left: 1.5rem;
@@ -290,6 +295,21 @@ https://www.tooplate.com/view/2119-gymso-fitness
     font-weight: var(--font-weight-normal);
     text-transform: uppercase;
     padding: 2px 6px;
+  }
+
+  .nav-link-d {
+    display: block;
+    margin-right: 0;
+    color: var(--primary-color);
+    font-size: var(--h6-font-size);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    padding: 2px 6px;
+  }
+
+  .nav-link-d:hover {
+    color: var(--white-color);
+    cursor: pointer;
   }
 
   .nav-item .nav-link.active,
