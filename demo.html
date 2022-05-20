@@ -51,6 +51,7 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        
       }
 
       #floating-panel {
@@ -93,22 +94,22 @@
       let map, heatmap, x, y, z;
 
       function loadmaps(){
-        $.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-        //$.getJSON("./pruebasjson/latitud.json", function(result){
+        //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+        $.getJSON("./pruebasjson/latitud.json", function(result){
         globalThis.m = result;
         //x=Number(3.634441);
         m=String(m.field1);
         x=m.split(',').map(Number);
         });
-            $.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-            //$.getJSON("./pruebasjson/longitud.json", function(result){
+            //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+            $.getJSON("./pruebasjson/longitud.json", function(result){
             m = result;
             //y=Number(-76.335292);
             m=String(m.field2);
             y=m.split(',').map(Number);
             });
-              $.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-              //$.getJSON("./pruebasjson/hora.json", function(result){
+              //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+              $.getJSON("./pruebasjson/hora.json", function(result){
               m = result;
               //z=String("12:30");
               m=String(m.field3);
@@ -165,11 +166,39 @@
       //Heatmap
         heatmap.set("radius", heatmap.get("radius") ? null : 20);
 
+      //Calculo de distancia
+      globalThis.df=0;
+      for (var i = 0; i < x.length-1; i++) {
+        var lat1 = x[i] * Math.PI / 180;
+        var lat2 = x[i+1] * Math.PI / 180;
+        var lon1 =  y[i] * Math.PI / 180;
+        var lon2 = y[i+1] * Math.PI / 180;
+    
+        // Formula Haversine 
+        let dlon = lon2 - lon1;
+        let dlat = lat2 - lat1;
+        let a = Math.pow(Math.sin(dlat / 2), 2)
+                  + Math.cos(lat1) * Math.cos(lat2)
+                  * Math.pow(Math.sin(dlon / 2),2);
+                
+        //let c = 2 * Math.asin(Math.sqrt(a));
+        let c = 1 * Math.asin(Math.sqrt(a));
+
+        
+        
+        df = df + (c * 6371);
+        console.log(df);
+      }
+      
+      df = (df*1000).toFixed(2);
+
       //Datos en texto
         document.getElementById("hdi").innerHTML = "Hora de inicio: "+ z[0].substring(0,5);
         document.getElementById("hdf").innerHTML = "Hora de fin: "+ z[z.length-1].substring(0,5);
-        document.getElementById("dist").innerHTML = "Distancia: "+ z[0].substring(0,5) + " kms";
-        document.getElementById("cal").innerHTML = "Calorías: "+ y[0].substring(0,5) + " kcals";
+        document.getElementById("cal").innerHTML = "Tiempo total: "+ z[z.length-1].substring(0,5);
+        document.getElementById("dist").innerHTML = "Distancia: "+ df + " mts";
+        document.getElementById("descarga").innerHTML = "Descargar datos";
+        
       }
 
       // Puntos en el mapa
@@ -192,8 +221,8 @@
     </script>
   </head>
 
-  <body>
-    <button onClick="window.location.reload();" style="position:fixed; left: 0; right: 0; top: 0; bottom: 0; font-size: var(--h1-font-size); font-weight: var(--font-weight-bold); color: var(--primary-color);">Iniciar</button>
+  <body style="background-color: #171819;">
+    <button onClick="window.location.reload();" class="cargando" style="position:fixed; left: 0; right: 0; top: 0; bottom: 0; font-size: var(--h1-font-size); font-weight: var(--font-weight-bold); color: var(--primary-color); background-color: #171819;">Iniciar</button>
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
@@ -245,7 +274,7 @@
   <nav class="navbar navbar-expand-lg fixed-bottom">
       <div class="container">
 
-          <a class="navbar-brand" href="#home" style="color:var(--primary-color)">Descargar datos</a>
+          <a class="navbar-brand" href="#home" style="color:var(--primary-color)" id="descarga"></a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
               aria-label="Toggle navigation">
@@ -255,20 +284,22 @@
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ml-lg-auto">
                   <li class="nav-item">
-                      <a href="" style="cursor: default; pointer-events: none;" class="nav-link smoothScroll" id="hdi">Hora de incio: 12:00</a>
+                      <a href="" style="cursor: default; pointer-events: none;" class="nav-link smoothScroll" id="hdi"></a>
                   </li>
 
                   <li class="nav-item">
-                    <a href="" style="cursor: default; pointer-events: none;" class="nav-link smoothScroll" id="hdf">Hora de fin: 12:00</a>
+                    <a href="" style="cursor: default; pointer-events: none;" class="nav-link smoothScroll" id="hdf"></a>
                   </li>
 
                   <li class="nav-item">
-                    <a href="" style="cursor: default; pointer-events: none;" class="nav-link smoothScroll" id="dist">Distancia: 6.57 kms</a>
+                    <a href="" style="cursor: default; pointer-events: none;" class="nav-link smoothScroll" id="cal"></a>
                   </li>
 
                   <li class="nav-item">
-                    <a href="" style="cursor: default; pointer-events: none;" class="nav-link smoothScroll" id="cal">Calorías: 1632 kcal</a>
+                    <a href="" style="cursor: default; pointer-events: none;" class="nav-link smoothScroll" id="dist"></a>
                   </li>
+
+                  
 
               </ul>
 
