@@ -94,22 +94,22 @@
       let map, heatmap, x, y, z;
 
       function loadmaps(){
-        //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-        $.getJSON("./pruebasjson/latitud.json", function(result){
+        $.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+        //$.getJSON("./pruebasjson/latitud.json", function(result){
         globalThis.m = result;
         //x=Number(3.634441);
         m=String(m.field1);
         x=m.split(',').map(Number);
         });
-            //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-            $.getJSON("./pruebasjson/longitud.json", function(result){
+            $.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+            //$.getJSON("./pruebasjson/longitud.json", function(result){
             m = result;
             //y=Number(-76.335292);
             m=String(m.field2);
             y=m.split(',').map(Number);
             });
-              //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-              $.getJSON("./pruebasjson/hora.json", function(result){
+              $.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+              //$.getJSON("./pruebasjson/hora.json", function(result){
               m = result;
               //z=String("12:30");
               m=String(m.field3);
@@ -187,15 +187,30 @@
         
         
         df = df + (c * 6371);
-        console.log(df);
       }
       
       df = (df*1000).toFixed(2);
 
+      //Calculo de tiempo
+      var zi = new Date("01/01/22 "+z[0]+" UTC");
+      var zf = new Date("01/01/22 "+z[z.length-1]+" UTC");
+      const diffTime = Math.abs(zf - zi);
+      var zt = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+      zi=zi.toLocaleTimeString(navigator.language, {
+        hour: '2-digit',
+        minute:'2-digit'
+      });
+
+      zf=zf.toLocaleTimeString(navigator.language, {
+        hour: '2-digit',
+        minute:'2-digit'
+      });
+
       //Datos en texto
-        document.getElementById("hdi").innerHTML = "Hora de inicio: "+ z[0].substring(0,5);
-        document.getElementById("hdf").innerHTML = "Hora de fin: "+ z[z.length-1].substring(0,5);
-        document.getElementById("cal").innerHTML = "Tiempo total: "+ z[z.length-1].substring(0,5);
+        document.getElementById("hdi").innerHTML = "Hora de inicio: "+ zi;
+        document.getElementById("hdf").innerHTML = "Hora de fin: "+ zf;
+        document.getElementById("cal").innerHTML = "Tiempo total: "+ zt;
         document.getElementById("dist").innerHTML = "Distancia: "+ df + " mts";
         document.getElementById("descarga").innerHTML = "Descargar datos";
         
@@ -274,7 +289,7 @@
   <nav class="navbar navbar-expand-lg fixed-bottom">
       <div class="container">
 
-          <a class="navbar-brand" href="#home" style="color:var(--primary-color)" id="descarga"></a>
+          <a class="navbar-brand" href="https://api.thingspeak.com/channels/1690392/feeds.json?api_key=UUKYCNZYHWOJNOK5&results=8" style="color:var(--primary-color)" id="descarga"></a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
               aria-label="Toggle navigation">
