@@ -95,21 +95,23 @@
 
       function loadmaps(){
         $.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-        //$.getJSON("./pruebasjson/latitud.json", function(result){
+        //$.getJSON("./pruebasjson/field1.json", function(result){
         globalThis.m = result;
+        //globalThis.long= Object.keys(result).length;
+        //console.log(long);
         //x=Number(3.634441);
         m=String(m.field1);
         x=m.split(',').map(Number);
         });
             $.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-            //$.getJSON("./pruebasjson/longitud.json", function(result){
+            //$.getJSON("./pruebasjson/field2.json", function(result){
             m = result;
             //y=Number(-76.335292);
             m=String(m.field2);
             y=m.split(',').map(Number);
             });
               $.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-              //$.getJSON("./pruebasjson/hora.json", function(result){
+              //$.getJSON("./pruebasjson/field3.json", function(result){
               m = result;
               //z=String("12:30");
               m=String(m.field3);
@@ -294,7 +296,7 @@
   <nav class="navbar navbar-expand-lg fixed-bottom">
       <div class="container">
 
-          <a class="navbar-brand" href="https://api.thingspeak.com/channels/1690392/feeds.json?api_key=UUKYCNZYHWOJNOK5&results=8" style="color:var(--primary-color)" id="descarga"></a>
+          <a class="navbar-brand" href="https://api.thingspeak.com/channels/1690392/feeds.csv?api_key=UUKYCNZYHWOJNOK5" style="color:var(--primary-color)" id="descarga"></a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
               aria-label="Toggle navigation">
@@ -345,7 +347,7 @@
      <script src="./three.min.js"></script>
      <script src="./GLTFLoader.js"></script>
      <script src="./app.js"></script>
-     
+
   </body>
 
 </html>
