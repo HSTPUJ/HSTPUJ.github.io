@@ -6,6 +6,7 @@
       $(".navbar-collapse").collapse('hide');
     });
 
+
     // AOS ANIMATION
     AOS.init({
       disable: 'mobile',
