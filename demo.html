@@ -194,8 +194,11 @@
       //Calculo de tiempo
       var zi = new Date("01/01/22 "+z[0]+" UTC");
       var zf = new Date("01/01/22 "+z[z.length-1]+" UTC");
-      const diffTime = Math.abs(zf - zi);
-      var zt = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+      const date1 = new Date("01/01/22 "+z[0]+" UTC");
+      const date2 = new Date("01/01/22 "+z[z.length-1]+" UTC");
+      const diffTime = Math.abs(date2 - date1);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
       zi=zi.toLocaleTimeString(navigator.language, {
         hour: '2-digit',
@@ -207,10 +210,12 @@
         minute:'2-digit'
       });
 
+      
+
       //Datos en texto
         document.getElementById("hdi").innerHTML = "Hora de inicio: "+ zi;
         document.getElementById("hdf").innerHTML = "Hora de fin: "+ zf;
-        document.getElementById("cal").innerHTML = "Tiempo total: "+ zt;
+        document.getElementById("cal").innerHTML = "Tiempo total: " + (diffTime/60000).toFixed(2) + " minutos";
         document.getElementById("dist").innerHTML = "Distancia: "+ df + " mts";
         document.getElementById("descarga").innerHTML = "Descargar datos";
         
@@ -327,6 +332,20 @@
 
     <!-- Mapa -->
     <div id="map"></div>
+
+     <!-- SCRIPTS -->
+     <script src="js/jquery.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/aos.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/custom.js"></script>
+     <script src="js/nocontext.js"></script>
+     
+     
+     <script src="./three.min.js"></script>
+     <script src="./GLTFLoader.js"></script>
+     <script src="./app.js"></script>
+     
   </body>
 
 </html>
