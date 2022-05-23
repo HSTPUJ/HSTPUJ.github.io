@@ -148,6 +148,8 @@
             position: new google.maps.LatLng(x[i], y[i]),
             icon: image,
             map: map
+
+            
           });
 
           google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -184,7 +186,7 @@
                   * Math.pow(Math.sin(dlon / 2),2);
                 
         //let c = 2 * Math.asin(Math.sqrt(a));
-        let c = 1 * Math.asin(Math.sqrt(a));
+        let c = 2 * Math.asin(Math.sqrt(a));
 
         
         
