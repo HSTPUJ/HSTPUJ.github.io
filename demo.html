@@ -237,6 +237,10 @@
           
         }
 
+
+        
+
+
         if (x.length<30){
 
         }
@@ -246,6 +250,14 @@
               data: getPoints150(x,y,x.length,i),
               map: map,
             });
+            const flightPath = new google.maps.Polyline({
+              path: getPoints150(x,y,x.length,i),
+              geodesic: true,
+              strokeColor: "#FFFFFF",
+              strokeOpacity: 0.5,
+              strokeWeight: 1,
+            });
+            flightPath.setMap(map);
           }
           else{
             if (x.length>=100){
@@ -253,6 +265,14 @@
                 data: getPoints100(x,y,x.length,i),
                 map: map,
               });
+              const flightPath = new google.maps.Polyline({
+                path: getPoints100(x,y,x.length,i),
+                geodesic: true,
+                strokeColor: "#FFFFFF",
+                strokeOpacity: 0.5,
+                strokeWeight: 1,
+              });
+              flightPath.setMap(map);
             }
             else{
               if (x.length>=80){
@@ -260,6 +280,14 @@
                   data: getPoints80(x,y,x.length,i),
                   map: map,
                 });
+                const flightPath = new google.maps.Polyline({
+                  path: getPoints80(x,y,x.length,i),
+                  geodesic: true,
+                  strokeColor: "#FFFFFF",
+                  strokeOpacity: 0.5,
+                  strokeWeight: 1,
+                });
+                flightPath.setMap(map);
               }
               else{
                 if (x.length>=50){
@@ -267,6 +295,14 @@
                     data: getPoints50(x,y,x.length,i),
                     map: map,
                   });
+                  const flightPath = new google.maps.Polyline({
+                    path: getPoints50(x,y,x.length,i),
+                    geodesic: true,
+                    strokeColor: "#FFFFFF",
+                    strokeOpacity: 0.5,
+                    strokeWeight: 1,
+                  });
+                  flightPath.setMap(map);
                 }
                 else{
                   if (x.length>=30){
@@ -274,6 +310,14 @@
                       data: getPoints30(x,y,x.length,i),
                       map: map,
                     });
+                    const flightPath = new google.maps.Polyline({
+                      path: getPoints30(x,y,x.length,i),
+                      geodesic: true,
+                      strokeColor: "#FFFFFF",
+                      strokeOpacity: 0.5,
+                      strokeWeight: 1,
+                    });
+                    flightPath.setMap(map);
                   }
                 }
               }
@@ -284,7 +328,7 @@
 
 
           //Heatmap
-        heatmap.set("radius", heatmap.get("radius") ? null : 20);
+        heatmap.set("radius", heatmap.get("radius") ? null : 10);
 
         heatmap.setOptions({
                 dissipating: true,
@@ -292,7 +336,9 @@
                 opacity: 0.8,
                 //dissipating: false
             });
+
         
+              
 
 
       
