@@ -91,7 +91,7 @@
        * Copyright 2019 Google LLC. All Rights Reserved.
        * SPDX-License-Identifier: Apache-2.0
        */
-      let map, heatmap, x = [], y = [], z = [], la = [], lo = [], ho = [];
+      let map, heatmap, x = [], y = [], z = [], w = [], la = [], lo = [], ho = [];
 
       function loadmaps(){
 
@@ -209,7 +209,9 @@
         };
 
         // Generación de puntos y marcadores
-        var w = [];
+
+        
+        
         for (i = 0; i < x.length; i++) {  
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(x[i], y[i]),
@@ -219,15 +221,22 @@
             
           });
 
+          
+
+          var zactual = new Date(z[i]+" UTC");
+          zactual=zactual.toLocaleTimeString(navigator.language, {
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+            hour: '2-digit',
+            minute:'2-digit'
+          });
 
 
           google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
               var infowindow = new google.maps.InfoWindow({
-                
-                
-
-                content: '<p><b>SIMO</b><br>Coordenadas: ' + x[i] +', '+y[i]+'<br>Hora en este punto: ' + z[i] + '</p>',
+                content: '<p><b>SIMO</b><br>Coordenadas: ' + x[i] +', '+y[i]+'<br>Hora en este punto: ' + zactual + '</p>',
                 disableAutoPan: true,
               });
               infowindow.open(map, marker);
