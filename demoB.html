@@ -179,65 +179,26 @@
           mapTypeId: "satellite",
         });
 
-        // Formato de marcadores
-        const image = {
-          url: " ",
-          // Medida del marcador
-          size: new google.maps.Size(10, 10),
-          // Origen
-          origin: new google.maps.Point(0, 0),
-          // Ancla de marcador
-          anchor: new google.maps.Point(0, 0),
-        };
+      
 
         // Generación de puntos y marcadores
-        var w = [];
+        var w = []
+        var datos = new Object();
+
         for (i = 0; i < x.length; i++) {  
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(x[i], y[i]),
-            icon: image,
-            map: map
-
-            
-          });
-
-
-
-          google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-              var infowindow = new google.maps.InfoWindow({
-                
-                
-
-                content: '<p><b>SIMO</b><br>Coordenadas: ' + x[i] +', '+y[i]+'<br>Hora en este punto: ' + z[i] + '</p>',
-                disableAutoPan: true,
-              });
-              infowindow.open(map, marker);
-            }
-          })(marker, i));
-
           
         }
 
+        for (i = 0; i < x.length; i++) {  
         heatmap = new google.maps.visualization.HeatmapLayer({
-            data: getPoints(x,y,x.length,i),
+            data: getPoints(x,y,z,i),
             map: map,
           });
-
-          //Heatmap
-        heatmap.set("radius", heatmap.get("radius") ? null : 20);
-
-        heatmap.setOptions({
-                dissipating: true,
-                maxIntensity: 0.5,
-                opacity: 0.8,
-                //dissipating: false
-            });
-        
+        }
 
 
       
-            
+
       //Calculo de distancia
       globalThis.df=0;
       for (var i = 0; i < x.length-1; i++) {
@@ -266,7 +227,7 @@
       //Calculo de tiempo
       var zi = new Date(z[0]+" UTC");
       var zf = new Date(z[z.length-1]+" UTC");
-      
+
       const date1 = new Date(z[0]+" UTC");
       const date2 = new Date(z[z.length-1]+" UTC");
       const diffTime = Math.abs(date2 - date1);
@@ -295,37 +256,9 @@
 
       // Puntos en el mapa
       function getPoints(x,y,z,i) {
+        console.log(google.maps.LatLng(x[i], y[i]));
         return [
-        new google.maps.LatLng(x[z-1], y[z-1]),
-        new google.maps.LatLng(x[z-2], y[z-2]),
-        new google.maps.LatLng(x[z-3], y[z-3]),
-        new google.maps.LatLng(x[z-4], y[z-4]),
-        new google.maps.LatLng(x[z-5], y[z-5]),
-        new google.maps.LatLng(x[z-6], y[z-6]),
-        new google.maps.LatLng(x[z-7], y[z-7]),
-        new google.maps.LatLng(x[z-8], y[z-8]),
-        new google.maps.LatLng(x[z-9], y[z-9]),
-        new google.maps.LatLng(x[z-10], y[z-10]),
-        new google.maps.LatLng(x[z-11], y[z-11]),
-        new google.maps.LatLng(x[z-12], y[z-12]),
-        new google.maps.LatLng(x[z-13], y[z-13]),
-        new google.maps.LatLng(x[z-14], y[z-14]),
-        new google.maps.LatLng(x[z-15], y[z-15]),
-        new google.maps.LatLng(x[z-16], y[z-16]),
-        new google.maps.LatLng(x[z-17], y[z-17]),
-        new google.maps.LatLng(x[z-18], y[z-18]),
-        new google.maps.LatLng(x[z-19], y[z-19]),
-        new google.maps.LatLng(x[z-20], y[z-20]),
-        new google.maps.LatLng(x[z-21], y[z-21]),
-        new google.maps.LatLng(x[z-22], y[z-22]),
-        new google.maps.LatLng(x[z-23], y[z-23]),
-        new google.maps.LatLng(x[z-24], y[z-24]),
-        new google.maps.LatLng(x[z-25], y[z-25]),
-        new google.maps.LatLng(x[z-26], y[z-26]),
-        new google.maps.LatLng(x[z-27], y[z-27]),
-        new google.maps.LatLng(x[z-28], y[z-28]),
-        new google.maps.LatLng(x[z-29], y[z-29]),
-        new google.maps.LatLng(x[z-30], y[z-30]),
+          new google.maps.LatLng(x[i], y[i]),
         ];
       }
 
