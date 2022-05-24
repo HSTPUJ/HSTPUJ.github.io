@@ -91,34 +91,82 @@
        * Copyright 2019 Google LLC. All Rights Reserved.
        * SPDX-License-Identifier: Apache-2.0
        */
-      let map, heatmap, x, y, z;
+      let map, heatmap, x = [], y = [], z = [], la = [], lo = [], ho = [];
 
       function loadmaps(){
-        $.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-        //$.getJSON("./pruebasjson/field1.json", function(result){
+
+        $.getJSON('https://api.thingspeak.com/channels/1690392/fields/1.json?api_key=UUKYCNZYHWOJNOK5', function(results){
+        //$.getJSON('./pruebasjson/lat.json', function(results){
+        globalThis.p = results;
+        globalThis.jsonObj = Object.values(p.feeds); 
+          for (let i = 0; i < jsonObj.length; i++) {
+            p=String(jsonObj[i].field1);
+            la.push(p);
+          }
+          la = la.map(Number);
+        //console.log("la: ");
+        //console.log(la);
+        x = la;
+        });
+          $.getJSON('https://api.thingspeak.com/channels/1690392/fields/2.json?api_key=UUKYCNZYHWOJNOK5', function(results){
+          //$.getJSON('./pruebasjson/lon.json', function(results){
+          globalThis.p = results;
+          globalThis.jsonObj = Object.values(p.feeds); 
+            for (let i = 0; i < jsonObj.length; i++) {
+              p=String(jsonObj[i].field2);
+              lo.push(p);
+            }
+            lo = lo.map(Number);
+          //console.log("lo: ");
+          //console.log(lo);
+          y = lo;
+          });
+            $.getJSON('https://api.thingspeak.com/channels/1690392/fields/3.json?api_key=UUKYCNZYHWOJNOK5', function(results){
+            //$.getJSON('./pruebasjson/hor.json', function(results){
+            globalThis.p = results;
+            globalThis.jsonObj = Object.values(p.feeds); 
+              for (let i = 0; i < jsonObj.length; i++) {
+                p=String(jsonObj[i].field3);
+                ho.push(p);
+              }
+            //console.log("ho: ");
+            //console.log(ho);
+            z = ho;
+
+
+            })/*;
+        
+
+            
+        //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+        $.getJSON("./pruebasjson/latitud.json", function(result){
+        //$.getJSON("./pruebasjson/lat.json", function(result){
         globalThis.m = result;
-        //globalThis.long= Object.keys(result).length;
-        //console.log(long);
-        //x=Number(3.634441);
         m=String(m.field1);
-        x=m.split(',').map(Number);
+        x=la;
+        //x=m.split(',').map(Number);
+        console.log("x: ");
+        console.log(x);
         });
-            $.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-            //$.getJSON("./pruebasjson/field2.json", function(result){
+            //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+            $.getJSON("./pruebasjson/longitud.json", function(result){
+            //$.getJSON("./pruebasjson/lon.json", function(result){
             m = result;
-            //y=Number(-76.335292);
             m=String(m.field2);
-            y=m.split(',').map(Number);
+            y = lo;
+            //y=m.split(',').map(Number);
             });
-              $.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-              //$.getJSON("./pruebasjson/field3.json", function(result){
+              //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
+              $.getJSON("./pruebasjson/hora.json", function(result){
+              //$.getJSON("./pruebasjson/hor.json", function(result){
               m = result;
-              //z=String("12:30");
               m=String(m.field3);
-              z=m.split(',');
-              }).done(function() {
+              z = ho;
+              //z=m.split(',');
+              })*/.done(function() {
                   window.initMap = initMap(x,y,z);
-        });
+              });
+
         return[x,y,z];        
       }
 
@@ -143,6 +191,7 @@
         };
 
         // Generación de puntos y marcadores
+        var w = [];
         for (i = 0; i < x.length; i++) {  
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(x[i], y[i]),
@@ -152,9 +201,12 @@
             
           });
 
+
+
           google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
               var infowindow = new google.maps.InfoWindow({
+
                 content: '<p><b>SIMO</b><br>Coordenadas: ' + x[i] +', '+y[i]+'<br>Hora en este punto: ' + z[i] + '</p>'
               });
               infowindow.open(map, marker);
@@ -165,10 +217,21 @@
             data: getPoints(x,y,z,i),
             map: map,
           });
+
+          //Heatmap
+        
+
+        heatmap.setOptions({
+                dissipating: false,
+                maxIntensity: 0,
+                radius: 1,
+                opacity: 0.1,
+                //dissipating: false
+            });
         }
 
-      //Heatmap
-        heatmap.set("radius", heatmap.get("radius") ? null : 20);
+
+      
 
       //Calculo de distancia
       globalThis.df=0;
@@ -196,11 +259,11 @@
       df = (df*1000).toFixed(2);
 
       //Calculo de tiempo
-      var zi = new Date("01/01/22 "+z[0]+" UTC");
-      var zf = new Date("01/01/22 "+z[z.length-1]+" UTC");
+      var zi = new Date(z[0]+" UTC");
+      var zf = new Date(z[z.length-1]+" UTC");
 
-      const date1 = new Date("01/01/22 "+z[0]+" UTC");
-      const date2 = new Date("01/01/22 "+z[z.length-1]+" UTC");
+      const date1 = new Date(z[0]+" UTC");
+      const date2 = new Date(z[z.length-1]+" UTC");
       const diffTime = Math.abs(date2 - date1);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
@@ -305,12 +368,7 @@
      <script src="js/aos.js"></script>
      <script src="js/smoothscroll.js"></script>
      <script src="js/custom.js"></script>
-     <script src="js/nocontext.js"></script>
-     
-     
-     <script src="./three.min.js"></script>
-     <script src="./GLTFLoader.js"></script>
-     <script src="./app.js"></script>
+
 
   </body>
 
