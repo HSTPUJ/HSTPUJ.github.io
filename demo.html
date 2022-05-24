@@ -291,11 +291,34 @@
       
 
       //Datos en texto
+
+      if (isNaN(df)){
+
+      document.getElementById("refresh").style["z-index"] = "1";
+      }
+      else{
         document.getElementById("hdi").innerHTML = "Hora de inicio: "+ zi;
         document.getElementById("hdf").innerHTML = "Hora de fin: "+ zf;
         document.getElementById("cal").innerHTML = "Tiempo total: " + (diffTime/60000).toFixed(2) + " minutos";
         document.getElementById("dist").innerHTML = "Distancia: "+ df + " mts";
+        console.log(df);
         document.getElementById("descarga").innerHTML = "Descargar datos";
+      }
+
+      if (df==0){
+
+      document.getElementById("refresh").style["z-index"] = "1";
+      }
+      else{
+        document.getElementById("hdi").innerHTML = "Hora de inicio: "+ zi;
+        document.getElementById("hdf").innerHTML = "Hora de fin: "+ zf;
+        document.getElementById("cal").innerHTML = "Tiempo total: " + (diffTime/60000).toFixed(2) + " minutos";
+        document.getElementById("dist").innerHTML = "Distancia: "+ df + " mts";
+        console.log(df);
+        document.getElementById("descarga").innerHTML = "Descargar datos";
+      }
+        
+
         
       }
 
@@ -349,7 +372,7 @@
   </head>
 
   <body style="background-color: #171819;">
-    <button onClick="window.location.reload();" style="position:fixed; left: 0; right: 0; top: 0; bottom: 0; font-size: var(--h1-font-size); font-weight: var(--font-weight-bold); color: var(--primary-color); background-color: #171819;"><h1 class="cargando">Iniciar</h1></button>
+    <button onClick="window.location.reload();" style="position:fixed; left: 0; right: 0; top: 0; bottom: 0; font-size: var(--h1-font-size); font-weight: var(--font-weight-bold); color: var(--primary-color); background-color: #171819; z-index: -1;" id="refresh"><h1 class="cargando">Iniciar</h1></button>
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
