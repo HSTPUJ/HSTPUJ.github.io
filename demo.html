@@ -301,7 +301,7 @@
         document.getElementById("hdf").innerHTML = "Hora de fin: "+ zf;
         document.getElementById("cal").innerHTML = "Tiempo total: " + (diffTime/60000).toFixed(2) + " minutos";
         document.getElementById("dist").innerHTML = "Distancia: "+ df + " mts";
-        console.log(df);
+        document.getElementById("refresh").style["z-index"] = "-1"
         document.getElementById("descarga").innerHTML = "Descargar datos";
       }
 
@@ -314,7 +314,7 @@
         document.getElementById("hdf").innerHTML = "Hora de fin: "+ zf;
         document.getElementById("cal").innerHTML = "Tiempo total: " + (diffTime/60000).toFixed(2) + " minutos";
         document.getElementById("dist").innerHTML = "Distancia: "+ df + " mts";
-        console.log(df);
+        document.getElementById("refresh").style["z-index"] = "-1"
         document.getElementById("descarga").innerHTML = "Descargar datos";
       }
         
