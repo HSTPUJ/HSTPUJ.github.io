@@ -121,6 +121,11 @@
           //console.log("lo: ");
           //console.log(lo);
           y = lo.filter(Number);
+          console.log(lo.filter(Number));
+          if(y>lo){
+            window.location.reload();
+          }
+          
           });
             $.getJSON('https://api.thingspeak.com/channels/1690392/fields/3.json?api_key=UUKYCNZYHWOJNOK5', function(results){
             //$.getJSON('./pruebasjson/hor.json', function(results){
@@ -178,12 +183,20 @@
 
       //Inicializar
       function initMap(x,y,z) {
+        
         // Posición inicial del mapa
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 17.5,
           center: new google.maps.LatLng(x[x.length-1], y[x.length-1] ),
           mapTypeId: "satellite",
         });
+
+        if (typeof google === 'object' && typeof google.maps === 'object') {
+          
+        }
+        else{
+          window.location.reload();
+        }
 
         // Formato de marcadores
         const image = {
