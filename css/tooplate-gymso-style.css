@@ -849,9 +849,8 @@ transform: scale(1.05);
 
   *::-webkit-scrollbar,
   *::-webkit-scrollbar-thumb {
-    z-index: 1;
     width: 8px;
-    border: 10px solid transparent;
+    background: #404040;
   }
 
   *::-webkit-scrollbar-thumb {        
