@@ -106,7 +106,8 @@
           la = la.map(Number);
         //console.log("la: ");
         //console.log(la);
-        x = la;
+        
+        x = la.filter(Number) ;
         });
           $.getJSON('https://api.thingspeak.com/channels/1690392/fields/2.json?api_key=UUKYCNZYHWOJNOK5', function(results){
           //$.getJSON('./pruebasjson/lon.json', function(results){
@@ -119,7 +120,7 @@
             lo = lo.map(Number);
           //console.log("lo: ");
           //console.log(lo);
-          y = lo;
+          y = lo.filter(Number);
           });
             $.getJSON('https://api.thingspeak.com/channels/1690392/fields/3.json?api_key=UUKYCNZYHWOJNOK5', function(results){
             //$.getJSON('./pruebasjson/hor.json', function(results){
@@ -131,7 +132,12 @@
               }
             //console.log("ho: ");
             //console.log(ho);
-            z = ho;
+
+            const filtro = ho.filter(element => {
+              return element !== ' ';
+            });
+
+            z = filtro;
 
 
             })/*;
