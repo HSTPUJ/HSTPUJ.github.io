@@ -86,11 +86,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <script>
-      /**
-       * @license
-       * Copyright 2019 Google LLC. All Rights Reserved.
-       * SPDX-License-Identifier: Apache-2.0
-       */
       let map, heatmap, x = [], y = [], z = [], w = [], la = [], lo = [], ho = [];
 
       function loadmaps(){
@@ -99,80 +94,38 @@
         //$.getJSON('./pruebasjson/lat.json', function(results){
         globalThis.p = results;
         globalThis.jsonObj = Object.values(p.feeds); 
-          for (let i = 0; i < jsonObj.length; i++) {
-            p=String(jsonObj[i].field1);
-            la.push(p);
-          }
-          la = la.map(Number);
-        //console.log("la: ");
-        //console.log(la);
-        
+        for (let i = 0; i < jsonObj.length; i++) {
+          p=String(jsonObj[i].field1);
+          la.push(p);
+        }
+        la = la.map(Number);
+        // Filtra datos vacíos
         x = la.filter(Number) ;
         });
           $.getJSON('https://api.thingspeak.com/channels/1690392/fields/2.json?api_key=UUKYCNZYHWOJNOK5', function(results){
-          //$.getJSON('./pruebasjson/lon.json', function(results){
           globalThis.p = results;
           globalThis.jsonObj = Object.values(p.feeds); 
-            for (let i = 0; i < jsonObj.length; i++) {
-              p=String(jsonObj[i].field2);
-              lo.push(p);
-            }
-            lo = lo.map(Number);
-          //console.log("lo: ");
-          //console.log(lo);
+          for (let i = 0; i < jsonObj.length; i++) {
+            p=String(jsonObj[i].field2);
+            lo.push(p);
+          }
+          lo = lo.map(Number);
+          // Filtra datos vacíos
           y = lo.filter(Number);
-          console.log(lo.filter(Number));
-          
-          
           });
             $.getJSON('https://api.thingspeak.com/channels/1690392/fields/3.json?api_key=UUKYCNZYHWOJNOK5', function(results){
-            //$.getJSON('./pruebasjson/hor.json', function(results){
             globalThis.p = results;
             globalThis.jsonObj = Object.values(p.feeds); 
-              for (let i = 0; i < jsonObj.length; i++) {
-                p=String(jsonObj[i].field3);
-                ho.push(p);
-              }
-            //console.log("ho: ");
-            //console.log(ho);
-
+            for (let i = 0; i < jsonObj.length; i++) {
+              p=String(jsonObj[i].field3);
+              ho.push(p);
+            }
+            // Filtra datos vacíos
             const filtro = ho.filter(element => {
               return element !== ' ';
             });
-
             z = filtro;
-
-
-            })/*;
-        
-
-            
-        //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/1/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-        $.getJSON("./pruebasjson/latitud.json", function(result){
-        //$.getJSON("./pruebasjson/lat.json", function(result){
-        globalThis.m = result;
-        m=String(m.field1);
-        x=la;
-        //x=m.split(',').map(Number);
-        console.log("x: ");
-        console.log(x);
-        });
-            //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/2/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-            $.getJSON("./pruebasjson/longitud.json", function(result){
-            //$.getJSON("./pruebasjson/lon.json", function(result){
-            m = result;
-            m=String(m.field2);
-            y = lo;
-            //y=m.split(',').map(Number);
-            });
-              //$.getJSON("https://api.thingspeak.com/channels/1690392/fields/3/last.json?api_key=UUKYCNZYHWOJNOK5", function(result){
-              $.getJSON("./pruebasjson/hora.json", function(result){
-              //$.getJSON("./pruebasjson/hor.json", function(result){
-              m = result;
-              m=String(m.field3);
-              z = ho;
-              //z=m.split(',');
-              })*/.done(function() {
+            }).done(function() {
                   window.initMap = initMap(x,y,z);
                   
               });
@@ -190,6 +143,7 @@
           mapTypeId: "satellite",
         });
 
+        // Recarga el sitio si no conectó con la API
         if (typeof google === 'object' && typeof google.maps === 'object') {
           
         }
@@ -209,19 +163,14 @@
         };
 
         // Generación de puntos y marcadores
-
-        
-        
         for (i = 0; i < x.length; i++) {  
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(x[i], y[i]),
             icon: image,
             map: map
-
-            
           });
-
           
+          // Ajuste de horario UTC a local para marcadores
           var zactual = [];
           zactual[i] = new Date(z[i]+" UTC");
           console.log(zactual[i]);
@@ -233,7 +182,7 @@
             minute:'2-digit'
           });
 
-
+          // Declaración de marcadores en cada coordenada
           google.maps.event.addListener(marker, 'click', (function(marker, i, zactual) {
             return function() {
               var infowindow = new google.maps.InfoWindow({
@@ -244,15 +193,12 @@
             }
           })(marker, i, zactual));
 
-          
         }
 
-
-        
-
-
+        // Graficaión de coordenadas según cantidad
         if (x.length<30){
-
+          document.getElementById("refresh").style["z-index"] = "1"
+          document.getElementById("refresh").innerHTML = "No hay suficientes datos. Ve a caminar.";
         }
         else{
           if (x.length>=150){
@@ -335,24 +281,14 @@
           }
         }
 
-
-
-          //Heatmap
+        // Ajustes del Heatmap
         heatmap.set("radius", heatmap.get("radius") ? null : 20);
-
         heatmap.setOptions({
                 maxIntensity: 0,
                 dissipating: true,
                 opacity: 0.7,
-                //dissipating: false
             });
 
-        
-              
-
-
-      
-            
       //Calculo de distancia
       globalThis.df=0;
       for (var i = 0; i < x.length-1; i++) {
@@ -367,21 +303,16 @@
         let a = Math.pow(Math.sin(dlat / 2), 2)
                   + Math.cos(lat1) * Math.cos(lat2)
                   * Math.pow(Math.sin(dlon / 2),2);
-                
-        //let c = 2 * Math.asin(Math.sqrt(a));
         let c = 2 * Math.asin(Math.sqrt(a));
-
-        
-        
         df = df + (c * 6371);
       }
       
+      //AJusta formato de distancia a dos decimales
       df = (df*1000).toFixed(2);
 
       //Calculo de tiempo
       var zi = new Date(z[0]+" UTC");
       var zf = new Date(z[z.length-1]+" UTC");
-      
       const date1 = new Date(z[0]+" UTC");
       const date2 = new Date(z[z.length-1]+" UTC");
       const diffTime = Math.abs(date2 - date1);
@@ -400,7 +331,6 @@
       
 
       //Datos en texto
-
       if (isNaN(df)){
       window.location.reload();
       document.getElementById("refresh").style["z-index"] = "1";
@@ -426,9 +356,6 @@
         document.getElementById("refresh").style["z-index"] = "-1"
         document.getElementById("descarga").innerHTML = "Descargar datos";
       }
-        
-
-        
       }
 
       // Puntos en el mapa
@@ -874,11 +801,6 @@
       let intervalId = window.setInterval(function(){
                 datos=loadmaps();
                 window.clearInterval(intervalId);
-                /*var i = 0;
-                i = i+1;
-                if (i = 100) {
-                  window.clearInterval(intervalId);
-                }*/
                     }, 1);
     </script>
   </head>
